@@ -1,0 +1,35 @@
+var allMenu = $("#searchMenuList")[0].innerHTML;  //initialize all menu to variable
+$("#searchMenu").on("keyup", function() 
+{
+	var matchCount=0;
+	var menuName = $(this).val().toLowerCase();
+	if($.trim(menuName)  != null && $.trim(menuName) != ""){
+	var flag = false;
+		$("#searchMenuList li").filter(function() 
+		{
+			if($(this).toggle($(this).text().toLowerCase().indexOf(menuName) != -1)){
+					$(this).toggle($(this).text().toLowerCase().indexOf(menuName) > -1);
+					$(this).addClass("active");
+					$(this).find("ul").css("display","block");
+					
+					matchCount++;
+				}
+		});
+
+		if(matchCount == 0)
+		{
+			$(".noMenuFound").show();
+		}
+		else
+		{
+			$(".noMenuFound").hide();
+		}
+	}
+	else
+	{
+		$("#searchMenuList").empty();
+		$(".noMenuFound").hide();
+		$("#searchMenuList").append(allMenu);
+	}
+
+});
